@@ -8,6 +8,7 @@ var version = "0.4.1.20200228"
 // Globale Variablen
 var arQuestionsShort = new Array();	// Kurzform der Fragen: Atomkraft, Flughafenausbau, ...
 var arQuestionsLong = new Array();		// Langform der Frage: Soll der Flughafen ausgebaut werden?
+var arQuestionAnswers = new Array()	// wenn individuelle Antworten genutzt werden sollen, als zusätzliche Spalten in Fragen.csv
 
 var arPartyPositions = new Array();	// Position der Partei als Zahl aus den CSV-Dateien (1/0/-1)
 var arPartyOpinions = new Array();		// Begründung der Parteien aus den CSV-Dateien
@@ -96,18 +97,33 @@ function fnEvaluation()
 			var faktor=1; //Faktor ist 1 normal und 2 wenn Frage doppelt gewertet werden soll
 			if(arVotingDouble[modulo])
 				{faktor=2;}
-			// Bei Uebereinstimmung, Zaehler um eins erhoehen		
-			if (arPartyPositions[i] == arPersonalPositions[modulo])
+			
+			// Klassische ja/nein/neutral Frage
+			if (arQuestionAnswers[modulo].length == 0)
 			{
-				positionsMatch+=faktor;
-				arResults[indexPartyInArray] = positionsMatch; 
+				// Bei Uebereinstimmung, Zaehler um eins erhoehen		
+				if (arPartyPositions[i] == arPersonalPositions[modulo])
+				{
+					positionsMatch+=faktor;
+					arResults[indexPartyInArray] = positionsMatch; 
+				}
+				// Partei ist neutral -> 0,5 Punkte vergeben
+				else if ( (arPartyPositions[i] == 0) )
+				{
+					positionsMatch+=0.5*faktor;
+					arResults[indexPartyInArray] = positionsMatch;			
+				} // end: if arPartyPosition-i = arPersonalPosition
 			}
-			// Partei ist neutral -> 0,5 Punkte vergeben
-			else if ( (arPartyPositions[i] == 0) )
+			//Frage mit mehreren Antwortmöglichkeiten, hier gibt es nur Punkte wenn man genau trifft
+			else
 			{
-				positionsMatch+=0.5*faktor;
-				arResults[indexPartyInArray] = positionsMatch;			
-			} // end: if arPartyPosition-i = arPersonalPosition
+				if(arPartyPositions[i] == arPersonalPositions[modulo])
+				{
+					positionsMatch+=faktor;
+					arResults[indexPartyInArray] = positionsMatch;
+				}
+			}
+			
 		} // end: Frage nicht uebersprungen
 	} // end: for numberOfQuestions
 	
@@ -291,12 +307,43 @@ function fnTransformCsvToArray(csvData,modus)
 			// FRAGEN in globales Array schreiben
 			arQuestionsShort.push(valueOne);
 			arQuestionsLong.push(valueTwo);
+			if(arZeilen[i].length >= 3)
+			{	var answers = Array()
+				for(j = 2; j < arZeilen[i].length; j++)
+				{
+					answers.push(arZeilen[i][j])
+				}
+				arQuestionAnswers.push(answers)
+			}
+			else
+			{
+				arQuestionAnswers.push(Array())
+			}
 		}
 		else
 		{
+			var questionNr = arPartyPositions.length%arQuestionsShort.length
+			if(arQuestionAnswers[questionNr].length != 0)
+			{
+				//transform answers into indices
+				var answerFound=false
+				for(j=0; j<arQuestionAnswers[questionNr].length; j++)
+				{
+					if(arQuestionAnswers[questionNr][j]==valueOne)
+					{
+						valueOne = j
+						answerFound=true
+					}
+				}
+				if (answerFound==false)
+				{
+					console.log("Answer "+valueOne+" with opinion "+valueTwo+" is not a valid answer option for this question!!!!")
+				}
+			}
+
 			// ANTWORTEN und Meinungen in globales Array schreiben
-				arPartyPositions.push(valueOne);
-				arPartyOpinions.push(valueTwo);
+			arPartyPositions.push(parseInt(valueOne));
+			arPartyOpinions.push(valueTwo);
 		}  // end: if-else modus == 1	
 	}  // end: for
 }
@@ -334,68 +381,140 @@ function fnTransformPositionToImage(position)
 
 // v.0.3 NEU
 // ersetzt die Position (-1, 0, 1) mit dem passenden Button
-function fnTransformPositionToButton(position)
+function fnTransformPositionToButton(questionNr, position)
 {
-	var arButtons = new Array("btn-danger","btn-warning","btn-success")
-	var positionButton = "btn-default";
-	for (z = -1; z <= 1; z++)
+	if(position==99 || position == undefined)
 	{
-	 	if (z == position)
+		return "btn-default";
+	}
+	
+	// standard Antworten (-1,0,1)
+	if(arQuestionAnswers[questionNr].length==0 && position>=-1 && position<=1)
+	{
+		var arButtons = new Array("btn-danger","btn-warning","btn-success");
+		return arButtons[parseInt(position)+1];
+	}
+	
+	//Variable Antworten
+	if(arQuestionAnswers[questionNr].length!=0)
+	{
+		if(arQuestionAnswers[questionNr][position]=="Ja")
 		{
-			positionButton = arButtons[(z+1)];
+			return "btn-success";
+		}
+		else if(arQuestionAnswers[questionNr][position]=="Nein")
+		{
+			return "btn-danger";
+		}
+		else
+		{
+			return "btn-warning";
 		}
 	}
-	return positionButton;
+	
+	console.log("Unknown button for questionnr "+questionNr+" and position"+position);
+	return "btn-default";
 }
 
 // v.0.3 NEU
 // ersetzt die Position (-1, 0, 1) mit dem passenden Icon
-function fnTransformPositionToIcon(position)
+function fnTransformPositionToIcon(questionNr, position)
 {
-	var arIcons = new Array("&#x2716;","&#x25EF;","&#x2714;")
-	var positionIcon = "&#x21B7;";
-	for (z = -1; z <= 1; z++)
+	if(position==99 || position == undefined)
 	{
-	 	if (z == position)
+		return "&#x21B7;";
+	}
+	
+	// standard Antworten (-1,0,1)
+	if(arQuestionAnswers[questionNr].length==0 && position>=-1 && position<=1)
+	{
+		var arIcons = new Array("&#x2716;","&#x25EF;","&#x2714;");
+		return arIcons[parseInt(position)+1];
+	}
+	
+	//Variable Antworten
+	if(arQuestionAnswers[questionNr].length!=0)
+	{
+		if(arQuestionAnswers[questionNr][position]=="Ja")
 		{
-			positionIcon = arIcons[(z+1)];
+			return "&#x2714;"; //Haken
+		}
+		else if(arQuestionAnswers[questionNr][position]=="Nein")
+		{
+			return "&#x2716;"; //X
+		}
+		else
+		{
+			return arQuestionAnswers[questionNr][position]
+			//return "&#x3f"; //?
 		}
 	}
-	return positionIcon;
+	
+	console.log("Unknown icon for questionnr "+questionNr+" and position"+position);
+	return "&#x3f";
 }
 
 // ersetzt die Partei-Position (-1, 0, 1) mit der passenden Farbe
-function fnTransformPositionToColor(position)
+function fnTransformPositionToColor(questionNr, position)
 {
-	// red, yellow, green - "#ff0000","#ffff00","#00ff00"
-	// Bootstrap-colors: https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css
-	var arColors = new Array("#d9534f","#f0ad4e","#5cb85c")
-	var positionColor = "#c0c0c0";
-	for (z = -1; z <= 1; z++)
+	if(position==99 || position == undefined)
 	{
-	 	if (z == position)
+		return "#c0c0c0";
+	}
+	
+	// standard Antworten (-1,0,1)
+	if(arQuestionAnswers[questionNr].length==0 && position>=-1 && position<=1)
+	{
+		var arColors = new Array("#d9534f","#f0ad4e","#5cb85c");
+		return arColors[parseInt(position)+1];
+	}
+	
+	//Variable Antworten
+	if(arQuestionAnswers[questionNr].length!=0)
+	{
+		if(arQuestionAnswers[questionNr][position]=="Ja")
 		{
-			positionColor = arColors[(z+1)];
+			return "#5cb85c"; //green
+		}
+		else if(arQuestionAnswers[questionNr][position]=="Nein")
+		{
+			return "#d9534f"; //red
+		}
+		else
+		{
+			return "#f0ad4e"; //yellow
 		}
 	}
-	return positionColor;
+	
+	console.log("Unknown color for questionnr "+questionNr+" and position"+position);
+	return "#ff0000";
 	
 }
 
 
 // ersetzt die Partei-Position (-1, 0, 1) mit dem passenden Text
-function fnTransformPositionToText(position)
+function fnTransformPositionToText(questionNr, position)
 {
-	var arText = new Array("[-]","[o]","[+]")
-	var positionText = "[/]";
-	for (z = -1; z <= 1; z++)
+	if(position==99 || position == undefined)
 	{
-	 	if (z == position)
-		{
-			positionText = arText[(z+1)];
-		}
+		return "[/]";
 	}
-	return positionText;
+	
+	// standard Antworten (-1,0,1)
+	if(arQuestionAnswers[questionNr].length==0 && position>=-1 && position<=1)
+	{
+		var arText = new Array("[-]","[o]","[+]");
+		return arText[parseInt(position)+1];
+	}
+	
+	//Variable Antworten
+	if(arQuestionAnswers[questionNr].length!=0)
+	{
+		return arQuestionAnswers[questionNr][position]; 
+	}
+	
+	console.log("Unknown text for questionnr "+questionNr+" and position"+position);
+	return "???";
 	
 }
 
@@ -502,16 +621,22 @@ function fnStartToggleTableRow(questionLength)
 // 02/2015 BenKob (doppelte Wertung)
 function fnToggleSelfPosition(i)
 {
+	//if it was skipped via goto question
+	if (arPersonalPositions[i]==undefined)
+	{
+		arPersonalPositions[i] = 99
+	}
+	
 	arPersonalPositions[i]--;
-	if (arPersonalPositions[i]==-2) 
+	if (arPersonalPositions[i]==-2 || (arQuestionAnswers[i].length!=0 && arPersonalPositions[i]==-1)) 
 		{arPersonalPositions[i]=99}
 	if (arPersonalPositions[i]==98) 
-		{arPersonalPositions[i]=1}
+		{arPersonalPositions[i]=(arQuestionAnswers[i].length==0?1:arQuestionAnswers[i].length-1)}
 //	var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
-	var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
-	var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
+	var positionButton = fnTransformPositionToButton(i, arPersonalPositions[i]);
+	var positionIcon = fnTransformPositionToIcon(i, arPersonalPositions[i]);
 	// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);
-	var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
+	var positionText  = fnTransformPositionToText(i, arPersonalPositions[i]);
 	
 	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
 	$("#selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);

@@ -108,6 +108,8 @@ function fnShowQuestionNumber(questionNumber)
 	$("#votingNeutral").unbind("click");
 	$("#votingContra").unbind("click");
 	$("#votingSkip").unbind("click");
+	
+	$("#voting_answers").empty()
 
 	// solange Fragen gestellt werden -> Anzeigen (sonst Auswertung)
 	if (questionNumber < arQuestionsLong.length) 
@@ -149,27 +151,49 @@ function fnShowQuestionNumber(questionNumber)
 		$("#voting").fadeIn(500);
 		
 		
+		if(arQuestionAnswers[questionNumber].length==0)
+		{
+			
+			for(i=1; i<=4; i++)
+			{
+				$("#voting"+i).hide()
+			}
+			
+			$("#votingPro").fadeIn(500)
+			$("#votingNeutral").fadeIn(500)
+			$("#votingContra").fadeIn(500)
+			
+			// Klick-Funktion auf Bilder/Buttons legen.
+			$("#votingPro").click(function () {
+				arPersonalPositions[questionNumber] = 1;
+				fnShowQuestionNumber(questionNumber);
+			});
+
+			$("#votingNeutral").click(function () { 
+				arPersonalPositions[questionNumber] = 0;
+				fnShowQuestionNumber(questionNumber);
+			});
+
+			$("#votingContra").click(function () { 
+				arPersonalPositions[questionNumber] = -1;
+				fnShowQuestionNumber(questionNumber);
+			});
+
+
+		}
+		else{
+			$("#votingPro").hide()
+			$("#votingNeutral").hide()
+			$("#votingContra").hide()
+			
+			fnShowVotiongAnswers(questionNumber)
+			
+		}
 		
-		// Klick-Funktion auf Bilder/Buttons legen.
-	   $("#votingPro").click(function () {
-		arPersonalPositions[questionNumber] = 1;
-	   	fnShowQuestionNumber(questionNumber);
-	   });
-
-	   $("#votingNeutral").click(function () { 
-	   	arPersonalPositions[questionNumber] = 0;
-	   	fnShowQuestionNumber(questionNumber);
-	   });
-
-	   $("#votingContra").click(function () { 
-	   	arPersonalPositions[questionNumber] = -1;
-	   	fnShowQuestionNumber(questionNumber);
-	   });
-
-	   $("#votingSkip").click(function () { 
-	   	arPersonalPositions[questionNumber] = 99;
-	   	fnShowQuestionNumber(questionNumber);
-	   });
+		$("#votingSkip").click(function () { 
+				arPersonalPositions[questionNumber] = 99;
+				fnShowQuestionNumber(questionNumber);
+			});
 	
 		// Checkbox für doppelte Bewertung 
 	  	$("#votingDouble").attr('checked', arVotingDouble[questionNumber]);
@@ -197,6 +221,33 @@ function fnShowQuestionNumber(questionNumber)
 		fnEvaluationLong(arResults);
 	} 
 	
+}
+
+function fnShowVotiongAnswers(questionNumber)
+{
+	//var VotingButtonsHTML = "<table width='100%'><tr>"
+	var VotingButtonsHTML = "";
+	for(i=0; i<arQuestionAnswers[questionNumber].length; i++)
+	{	
+		var buttonClass = fnTransformPositionToButton(questionNumber, i);
+		var buttonText = arQuestionAnswers[questionNumber][i];
+
+		VotingButtonsHTML += "<div class='col'><button type='button' id='voting"+i+"' "+
+			" class='btn "+buttonClass+" btn-lg btn-block' "+ 
+			" onclick='fnPickAnswer("+i+","+questionNumber+")' "+ 
+			" alt='"+buttonText+"' title='"+buttonText+"'>"+
+			" "+buttonText+"</button></div>";
+	}
+	//VotingButtonsHTML += "</tr></table>"
+	
+	$("#voting_answers").append(VotingButtonsHTML).fadeIn(750);
+	
+}
+
+function fnPickAnswer(answerNumber, questionNumber)
+{
+	arPersonalPositions[questionNumber] = answerNumber;
+	fnShowQuestionNumber(questionNumber);
 }
 
 // 02/2015 BenKob
@@ -268,11 +319,16 @@ function fnJumpToQuestionNumber(questionNumber)
 	for (i = 1; i <= arQuestionsLong.length; i++)
 	{
 		// beantwortete Fragen farblich markieren
-		var positionColor = fnTransformPositionToColor(arPersonalPositions[(i-1)]);
+		var positionColor = fnTransformPositionToColor((i-1), arPersonalPositions[(i-1)]);
 	   $("#jumpToQuestionNr"+i+"").css("border-color", positionColor);
 	   
+	   if(i-1==questionNumber)
+	   {
+		   $("#jumpToQuestionNr"+i+"").css("border-color", "#ff0000");
+	   }
+	   
 	   // aktuelle Frage markieren
-	   if ((i-1) <= questionNumber)
+	   if ((i-1) < questionNumber)
 	   {
 //	   	$("#jumpToQuestionNr"+i+"").css("background-color", middleColor);	// alt: graue "Mittelfarbe" als Hintergrund
 	   	$("#jumpToQuestionNr"+i+"").css("background-color", positionColor);	// neu (0.2.3.2) Farbe der Auswahl (rot/gruen/...)
@@ -302,7 +358,7 @@ function fnEvaluationShort(arResults)
 
 	var numberOfQuestions=arQuestionsShort.length;
 	//Anzahl der Maximalpunkte ermitteln
-		var maxPoints = 0;
+	var maxPoints = 0;
 	for (i=0;i<arQuestionsShort.length;i++)
 	{
 		if (arPersonalPositions[i]<99)
@@ -441,10 +497,10 @@ function fnEvaluationLong(arResults)
 	for (i = 0; i <= (arQuestionsLong.length-1); i++)
 	{
 		// var positionImage = fnTransformPositionToImage(arPersonalPositions[i]);
-		var positionButton = fnTransformPositionToButton(arPersonalPositions[i]);
-		var positionIcon = fnTransformPositionToIcon(arPersonalPositions[i]);
+		var positionButton = fnTransformPositionToButton(i, arPersonalPositions[i]);
+		var positionIcon = fnTransformPositionToIcon(i, arPersonalPositions[i]);
 		// var positionColor = fnTransformPositionToColor(arPersonalPositions[i]);	// eigene Meinung - wird unten auch wieder genutzt als Rahmen für Parteipositionsbild
-		var positionText  = fnTransformPositionToText(arPersonalPositions[i]);
+		var positionText  = fnTransformPositionToText(i, arPersonalPositions[i]);
 		
 		// zu überarbeiten! -> Änderung von 0.2.3.2 auf 0.2.4
 		// Brauche ich die noch, da die cellId sowieso berechnet wird?
@@ -544,10 +600,11 @@ function fnEvaluationLong(arResults)
 				// var cellId = partyNum + 2 + (i * multiplier);
 				var partyPositionsRow = partyNum * arQuestionsLong.length + i;
 				// var positionImage = fnTransformPositionToImage(arPartyPositions[partyPositionsRow]);
-				var positionButton = fnTransformPositionToButton(arPartyPositions[partyPositionsRow]);
-				var positionIcon = fnTransformPositionToIcon(arPartyPositions[partyPositionsRow]);
+				var positionButton = fnTransformPositionToButton(i, arPartyPositions[partyPositionsRow]);
+				var positionIcon = fnTransformPositionToIcon(i, arPartyPositions[partyPositionsRow]);
 				
-                var positionText = fnTransformPositionToText(arPartyPositions[partyPositionsRow]);
+                var positionText = fnTransformPositionToText(i, arPartyPositions[partyPositionsRow]);
+
 
 				// Inhalt der Zelle
 				tableContent += "<p>"
@@ -561,7 +618,7 @@ function fnEvaluationLong(arResults)
 						" alt='"+arPartyOpinions[partyPositionsRow]+"'>"+
 						" "+positionIcon+"</button>";							
 							
-				tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + positionText + ( arPartyOpinions[partyPositionsRow] === "" ? "" : ": " + arPartyOpinions[partyPositionsRow] ) + " ";
+				tableContent += "<strong>" + arPartyNamesShort[partyNum] + "</strong>: " + ( arPartyOpinions[partyPositionsRow] === "" ? "" : arPartyOpinions[partyPositionsRow] ) + " ";
 				tableContent += "</p>";
 			}
 		tableContent += "</td> </tr> ";
