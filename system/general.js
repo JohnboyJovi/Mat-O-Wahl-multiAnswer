@@ -105,13 +105,12 @@ function fnEvaluation()
 				if (arPartyPositions[i] == arPersonalPositions[modulo])
 				{
 					positionsMatch+=faktor;
-					arResults[indexPartyInArray] = positionsMatch; 
+					
 				}
 				// Partei ist neutral -> 0,5 Punkte vergeben
 				else if ( (arPartyPositions[i] == 0) )
 				{
-					positionsMatch+=0.5*faktor;
-					arResults[indexPartyInArray] = positionsMatch;			
+					positionsMatch+=0.5*faktor;			
 				} // end: if arPartyPosition-i = arPersonalPosition
 			}
 			//Frage mit mehreren Antwortmöglichkeiten, hier gibt es nur Punkte wenn man genau trifft
@@ -122,7 +121,12 @@ function fnEvaluation()
 					positionsMatch+=faktor;
 					arResults[indexPartyInArray] = positionsMatch;
 				}
+				else if (Math.abs(arPartyPositions[i] - arPersonalPositions[modulo])==1)
+				{
+					positionsMatch+=0.5*faktor;			
+				}
 			}
+			arResults[indexPartyInArray] = positionsMatch; 
 			
 		} // end: Frage nicht uebersprungen
 	} // end: for numberOfQuestions
