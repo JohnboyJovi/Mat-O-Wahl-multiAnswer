@@ -210,7 +210,7 @@ var language = "de";
 // Separator for these variables is a comma gain. ;-)
 // The script and Mat-O-Wahl must be on the same domain.
 
-var statsRecord = 1;
+var statsRecord = 0;
 var statsServer = "http://localhost/extras/vote.php";
 
 // -> POST-Aufruf der gesendeten Ergebnisse / POST-Call of sent results:
