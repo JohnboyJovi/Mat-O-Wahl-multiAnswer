@@ -73,28 +73,28 @@ var fileQuestions = "Fragen.csv";
 // - right: "Party-A, Party-B"
 // - wrong:  "Party-A, Party-B -> missing " at the end
 // - wrong:  "Party-A Party-B" -> missing comma
-var strPartyFiles = "Apfelpartei.csv, Bananenpartei.csv, Citronenpartei.csv , Neutrale.csv";
+var strPartyFiles = "CDU.csv, SPD.csv, Gruene.csv, LINKE.csv, FDP.csv";
 
 // 1.2.2. Liste der Parteinamen - kurz
 // 1.2.2. List of party names - short
-var strPartyNamesShort = "&#x1F464; APPD,Bananen,&#x1F464; TBC,Neutrale";
+var strPartyNamesShort = "CDU, SPD, Grüne, Linke, FDP";
 
 // 1.2.3. Liste der Parteinamen - lang
 // 1.2.2. List of party names - long
-var strPartyNamesLong = "Appelpartei Deutschlands, Bananenrepublikpartei , Tradionelle Bundesdeutsche Citronenpartei, Neutrale Partei";
+var strPartyNamesLong = "Christlich Demokratische Union, Sozialdemokratische Partei Deutschland, Bündnis 90/Die Grünen, Die Linke, Freie Demokratische Partei";
 
 // 1.2.4. Logos der Parteien (und Bildgroesse fuer alle, Ursprungseinstellung = 50x25px)
 // 1.2.4. Logos of parties (and picture size for all, default = 50x25px)
-var strPartyLogosImg = " appel.png  , banane.jpg, tbc.gif,    egal.png   ";
+var strPartyLogosImg = "CDU.png, SPD.png, gruene.png, linke.png, fdp.png";
 
 // DEMNÄCHST VERALTET und wird ersetzt durch schicke, automatisch skalierte Bilder (Bootstrap) 
 // TO BE DEPRECATED and to be replaced with fancy, automatic sized images (Bootstrap) 
-var intPartyLogosImgWidth = 50;
-var intPartyLogosImgHeight = 25;
+var intPartyLogosImgWidth = 75;
+var intPartyLogosImgHeight = 75;
 
 // 1.2.5. Internetseiten der Parteien/Kandidaten beginnend mit http(s):// - Link oeffnet sich im neuen Fenster.
 // 1.2.5. Website of parties/candidates starting with http(s):// - Link opens in a new window.
-var strPartyInternet = "http://www.appelpartei.ap, https://www.banane.ba, https://www.die-citronen.ca, http://www.neutrale-partei.np";
+var strPartyInternet = "https://www.cdu-aachen.de/, https://www.spd-aachen.eu/, https://www.gruene-aachen.de/, https://dielinke-aachen.de/, https://www.fdp-aachen.de/";
 
 // DEPRECATED v.0.3
 // 1.2.6. Anzahl der Parteien, die in der detaillierten Auswertung sofort angezeigt werden sollen. 0 = alle
@@ -108,15 +108,15 @@ var strPartyInternet = "http://www.appelpartei.ap, https://www.banane.ba, https:
 
 // 1.3.1. Hauptueberschrift
 // 1.3.1. Main headline
-var heading1 = "Fruchtkorbwahlen";
+var heading1 = "Klima-Kommunalomat";
 
 // 1.3.2. Zweite Ueberschrift
 // 1.3.2. Second Headline
-var heading2 = "Die Wahl zur neuen Regierung in Obsthausen.";
+var heading2 = "blablablab";
 
 // 1.3.3. Kurzer Text um was es bei der Wahl geht
 // 1.3.3. Short (explaining) text on what's the election about
-var explainingText = "Am 30. Februar finden in Obsthausen Wahlen statt. Sie k&ouml;nnen sich hier alle Parteipositionen anschauen und miteinander vergleichen. Dies ist keine Wahlempfehlung, sondern ein Informationsangebot zu Wahlen!"; 
+var explainingText = "more blabblablab"; 
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
