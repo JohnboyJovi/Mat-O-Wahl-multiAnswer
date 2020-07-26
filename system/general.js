@@ -659,7 +659,7 @@ function fnToggleSelfPosition(i)
 	var positionText  = fnTransformPositionToText(i, arPersonalPositions[i]);
 	
 	// $("#selfPosition"+i).attr("src", "img/"+positionImage);
-	$("#selfPosition"+i).removeClass("btn-danger btn-warning btn-success btn-default").addClass(positionButton);
+	$("#selfPosition"+i).removeClass().addClass("btn "+positionButton+" btn-sm");
 	$("#selfPosition"+i).html(positionIcon);
 	$("#selfPosition"+i).attr("alt", positionText);
 	$("#selfPosition"+i).attr("title", positionText);
