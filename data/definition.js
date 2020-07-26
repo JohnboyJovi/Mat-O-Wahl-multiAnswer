@@ -73,19 +73,19 @@ var fileQuestions = "Fragen.csv";
 // - right: "Party-A, Party-B"
 // - wrong:  "Party-A, Party-B -> missing " at the end
 // - wrong:  "Party-A Party-B" -> missing comma
-var strPartyFiles = "CDU.csv, SPD.csv, Gruene.csv, LINKE.csv, FDP.csv";
+var strPartyFiles = "CDU.csv, SPD.csv, Gruene.csv, LINKE.csv, FDP.csv, Piraten.csv";
 
 // 1.2.2. Liste der Parteinamen - kurz
 // 1.2.2. List of party names - short
-var strPartyNamesShort = "CDU, SPD, Grüne, Linke, FDP";
+var strPartyNamesShort = "CDU, SPD, Grüne, Linke, FDP, Piraten";
 
 // 1.2.3. Liste der Parteinamen - lang
 // 1.2.2. List of party names - long
-var strPartyNamesLong = "Christlich Demokratische Union, Sozialdemokratische Partei Deutschland, Bündnis 90/Die Grünen, Die Linke, Freie Demokratische Partei";
+var strPartyNamesLong = "Christlich Demokratische Union, Sozialdemokratische Partei Deutschland, Bündnis 90/Die Grünen, Die Linke, Freie Demokratische Partei, Piratenpartei";
 
 // 1.2.4. Logos der Parteien (und Bildgroesse fuer alle, Ursprungseinstellung = 50x25px)
 // 1.2.4. Logos of parties (and picture size for all, default = 50x25px)
-var strPartyLogosImg = "CDU.png, SPD.png, gruene.png, linke.png, fdp.png";
+var strPartyLogosImg = "CDU.png, SPD.png, gruene.png, linke.png, fdp.png, Piraten.png";
 
 // DEMNÄCHST VERALTET und wird ersetzt durch schicke, automatisch skalierte Bilder (Bootstrap) 
 // TO BE DEPRECATED and to be replaced with fancy, automatic sized images (Bootstrap) 
@@ -94,7 +94,7 @@ var intPartyLogosImgHeight = 75;
 
 // 1.2.5. Internetseiten der Parteien/Kandidaten beginnend mit http(s):// - Link oeffnet sich im neuen Fenster.
 // 1.2.5. Website of parties/candidates starting with http(s):// - Link opens in a new window.
-var strPartyInternet = "https://www.cdu-aachen.de/, https://www.spd-aachen.eu/, https://www.gruene-aachen.de/, https://dielinke-aachen.de/, https://www.fdp-aachen.de/";
+var strPartyInternet = "https://www.cdu-aachen.de/, https://www.spd-aachen.eu/, https://www.gruene-aachen.de/, https://dielinke-aachen.de/, https://www.fdp-aachen.de/, https://www.piratenpartei-aachen.de/";
 
 // DEPRECATED v.0.3
 // 1.2.6. Anzahl der Parteien, die in der detaillierten Auswertung sofort angezeigt werden sollen. 0 = alle
@@ -108,15 +108,15 @@ var strPartyInternet = "https://www.cdu-aachen.de/, https://www.spd-aachen.eu/, 
 
 // 1.3.1. Hauptueberschrift
 // 1.3.1. Main headline
-var heading1 = "Klima-Kommunalomat";
+var heading1 = "KLIMA-KOMMUNAL-O-MAT";
 
 // 1.3.2. Zweite Ueberschrift
 // 1.3.2. Second Headline
-var heading2 = "blablablab";
+var heading2 = "<p style=\"color:red;\"><strong>Das ist nur eine vorläufige Version - nicht für die Veröffentlichung gedacht!!!</strong></p><br>Der KLIMA-KOMMUNAL-O-MAT zur Kommunalwahl in Aachen 2020 umfasst die Bereiche Klimaschutz, Ressourceneffizienz und Klimafolgenanpassung. Er wurde auf Basis der Antworten der vom Runden Tisch Klimanotstand Aachen befragten Parteien erstellt. Die Antworten der Parteien können auch unter <a href=\"https://www.runder-tisch-klimanotstand-ac.de/wahlpruefsteine/\">https://www.runder-tisch-klimanotstand-ac.de/wahlpruefsteine/</a> eingesehen werden.";
 
 // 1.3.3. Kurzer Text um was es bei der Wahl geht
 // 1.3.3. Short (explaining) text on what's the election about
-var explainingText = "more blabblablab"; 
+var explainingText = "Die hier präsentierten Themengebiete stellen nur einen Auszug der relevanten Themen für die Kommunalwahl 2020 dar. Insofern erhebt dieser KLIMA-KOMMUNAL-O-MAT keinen Anspruch auf Vollständigkeit."; 
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -131,7 +131,8 @@ var explainingText = "more blabblablab";
 
 // EN: Option A) own legal notice -> change link, ignore option B
 // 1.4.A  
-var imprintLink = "system/imprint.html"
+var imprintLink = "https://www.runder-tisch-klimanotstand-ac.de/impressum/"
+//var imprintLink = "system/imprint.html"
 
 // ********************************************************************
 
