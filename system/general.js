@@ -455,23 +455,9 @@ function fnTransformPositionToIcon(questionNr, position)
 	//Variable Antworten
 	if(arQuestionAnswers[questionNr].length!=0)
 	{
-		if(arQuestionAnswers[questionNr][position]=="Ja")
-		{
-			return "&#x2714;"; //Haken
-		}
-		else if(arQuestionAnswers[questionNr][position]=="Nein")
-		{
-			return "&#x2716;"; //X
-		}
-		else
-		{
-			return arQuestionAnswers[questionNr][position]
-			//return "&#x3f"; //?
-		}
+		return arQuestionAnswers[questionNr][position]
+
 	}
-	
-	console.log("Unknown icon for questionnr "+questionNr+" and position"+position);
-	return "&#x3f";
 }
 
 // ersetzt die Partei-Position (-1, 0, 1) mit der passenden Farbe
@@ -492,17 +478,36 @@ function fnTransformPositionToColor(questionNr, position)
 	//Variable Antworten
 	if(arQuestionAnswers[questionNr].length!=0)
 	{
-		if(arQuestionAnswers[questionNr][position]=="Ja")
+		answer = arQuestionAnswers[questionNr][position]
+		if(answer=="Stimme zu" || answer=="Stimme voll und ganz zu" || answer=="Ja")
 		{
 			return "#5cb85c"; //green
 		}
-		else if(arQuestionAnswers[questionNr][position]=="Nein")
+		if(answer=="Stimme eher zu")
+		{
+			return increase_hex_brightness("#5cb85c", 50)
+			//return "#90EE90"; //light green
+		}
+		if(answer=="Teils / teils" || answer=="Zeitweise")
+		{
+			return "#DDD"; //grey
+		}
+		if(answer=="Stimme eher nicht zu")
+		{
+			return increase_hex_brightness("#d9534f", 50)
+			//return "#5cb85c"; //light red
+		}
+		else if(answer=="Stimme nicht zu" || answer=="Stimme gar nicht zu" || answer=="Nein")
 		{
 			return "#d9534f"; //red
 		}
 		else
 		{
-			return "#f0ad4e"; //yellow
+			base_color = "#8B4513" //brown
+			//base_color = "#f0ad4e" //yellow
+			brightness_percentage = 50* (1.0 - position/arQuestionAnswers[questionNr].length)
+			color = increase_hex_brightness(base_color, brightness_percentage)
+			return color
 		}
 	}
 	
