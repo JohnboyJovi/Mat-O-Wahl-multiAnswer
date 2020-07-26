@@ -339,9 +339,14 @@ function fnTransformCsvToArray(csvData,modus)
 						answerFound=true
 					}
 				}
+				if(valueOne=="-")
+				{
+					valueOne=99
+					answerFound=true
+				}
 				if (answerFound==false)
 				{
-					console.log("Answer "+valueOne+" with opinion "+valueTwo+" is not a valid answer option for this question!!!!")
+					console.log("Answer \""+valueOne+"\" is not a valid answer option for question: "+arQuestionsShort[questionNr]+" (Nr: "+(questionNr+1)+")")
 				}
 			}
 
