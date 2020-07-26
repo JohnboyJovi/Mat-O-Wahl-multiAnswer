@@ -60,6 +60,7 @@ function fnStart()
 	else
 	{
 		$("#keepStatsCheckbox").attr("checked",false);	// Falls jmd. bauernschlau in der INDEX.HTML checked="checked" eingetragen hat -> OptOut
+		$("#keepStats").hide();
 	}
 
 	// Impressum
@@ -126,6 +127,9 @@ function fnShowQuestionNumber(questionNumber)
 		// $("#headingContent").empty();
 		$("#content").fadeOut(500).empty().hide();
 		$("#voting").fadeOut(500).hide();
+		$("#voting_answers").fadeOut(500).hide();
+		
+		
 		
 		// Neuen Inhalt schreiben
 		/*
@@ -149,6 +153,8 @@ function fnShowQuestionNumber(questionNumber)
 		
 		$("#content").fadeIn(500);
 		$("#voting").fadeIn(500);
+		$("#voting_answers").fadeIn(500);
+		
 		
 		
 		if(arQuestionAnswers[questionNumber].length==0)
@@ -186,7 +192,7 @@ function fnShowQuestionNumber(questionNumber)
 			$("#votingNeutral").hide()
 			$("#votingContra").hide()
 			
-			fnShowVotiongAnswers(questionNumber)
+			fnShowVotingAnswers(questionNumber)
 			
 		}
 		
@@ -223,7 +229,7 @@ function fnShowQuestionNumber(questionNumber)
 	
 }
 
-function fnShowVotiongAnswers(questionNumber)
+function fnShowVotingAnswers(questionNumber)
 {
 	//var VotingButtonsHTML = "<table width='100%'><tr>"
 	var VotingButtonsHTML = "";
@@ -285,7 +291,7 @@ function fnJumpToQuestionNumber(questionNumber)
 	// "Mittelfarbe" aus Hintergrund und Text bestimmen.
 	// var middleColor = fnCreateMiddleColor(); // -> 0.2.4.1 DEPRECATED -> built in CSS ODD
 
-	var maxQuestionsPerLine = 12;  // z.B. 16
+	var maxQuestionsPerLine = 30;  // z.B. 16
 
 	// Wenn mehr als XY Fragen vorhanden, dann erstelle eine zweite/dritte/... Zeile
 	if (arQuestionsLong.length >= maxQuestionsPerLine)
