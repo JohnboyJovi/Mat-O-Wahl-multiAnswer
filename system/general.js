@@ -388,6 +388,35 @@ function fnTransformPositionToImage(position)
 }
 */
 
+function createCSSClass(name,rules){
+	var style = document.createElement('style');
+	style.type = 'text/css';
+	document.getElementsByTagName('head')[0].appendChild(style);
+	if(!(style.sheet||{}).insertRule) 
+		(style.styleSheet || style.sheet).addRule(name, rules);
+	else
+		style.sheet.insertRule(name+"{"+rules+"}",0);
+}
+
+function increase_hex_brightness(hex, percent){
+    // strip the leading # if it's there
+    hex = hex.replace(/^\s*#|\s*$/g, '');
+
+    // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+    if(hex.length == 3){
+        hex = hex.replace(/(.)/g, '$1$1');
+    }
+
+    var r = parseInt(hex.substr(0, 2), 16),
+        g = parseInt(hex.substr(2, 2), 16),
+        b = parseInt(hex.substr(4, 2), 16);
+
+    return '#' +
+       ((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+       ((0|(1<<8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
+       ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
+}
+
 // v.0.3 NEU
 // ersetzt die Position (-1, 0, 1) mit dem passenden Button
 function fnTransformPositionToButton(questionNr, position)
@@ -397,32 +426,14 @@ function fnTransformPositionToButton(questionNr, position)
 		return "btn-default";
 	}
 	
-	// standard Antworten (-1,0,1)
-	if(arQuestionAnswers[questionNr].length==0 && position>=-1 && position<=1)
-	{
-		var arButtons = new Array("btn-danger","btn-warning","btn-success");
-		return arButtons[parseInt(position)+1];
-	}
+	color = fnTransformPositionToColor(questionNr, position)
+	hover_color = increase_hex_brightness(color, -20)
+	btn_name = "btn-"+color.replace(/#/, '');
 	
-	//Variable Antworten
-	if(arQuestionAnswers[questionNr].length!=0)
-	{
-		if(arQuestionAnswers[questionNr][position]=="Ja")
-		{
-			return "btn-success";
-		}
-		else if(arQuestionAnswers[questionNr][position]=="Nein")
-		{
-			return "btn-danger";
-		}
-		else
-		{
-			return "btn-warning";
-		}
-	}
-	
-	console.log("Unknown button for questionnr "+questionNr+" and position"+position);
-	return "btn-default";
+	createCSSClass("."+btn_name, "background: "+color)
+	createCSSClass("."+btn_name, "color: white")
+	createCSSClass("."+btn_name+":hover", "background: "+hover_color)
+	return btn_name
 }
 
 // v.0.3 NEU
