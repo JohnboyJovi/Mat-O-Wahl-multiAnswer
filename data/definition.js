@@ -73,19 +73,19 @@ var fileQuestions = "Fragen.csv";
 // - right: "Party-A, Party-B"
 // - wrong:  "Party-A, Party-B -> missing " at the end
 // - wrong:  "Party-A Party-B" -> missing comma
-var strPartyFiles = "CDU.csv, SPD.csv, Gruene.csv, LINKE.csv, FDP.csv, Piraten.csv, UWG.csv";
+var strPartyFiles = "CDU.csv, SPD.csv, Gruene.csv, LINKE.csv, FDP.csv, Piraten.csv, UWG.csv, Volt.csv, OEDP.csv";
 
 // 1.2.2. Liste der Parteinamen - kurz
 // 1.2.2. List of party names - short
-var strPartyNamesShort = "CDU, SPD, Grüne, Linke, FDP, Piraten, UWG";
+var strPartyNamesShort = "CDU, SPD, Grüne, Linke, FDP, Piraten, UWG, Volt, ÖDP";
 
 // 1.2.3. Liste der Parteinamen - lang
 // 1.2.2. List of party names - long
-var strPartyNamesLong = "Christlich Demokratische Union, Sozialdemokratische Partei Deutschland, Bündnis 90/Die Grünen, Die Linke, Freie Demokratische Partei, Piratenpartei, Unabhängige Wähler*innen Gemeinschaft";
+var strPartyNamesLong = "Christlich Demokratische Union, Sozialdemokratische Partei Deutschland, Bündnis 90/Die Grünen, Die Linke, Freie Demokratische Partei, Piratenpartei, Unabhängige Wähler*innen Gemeinschaft, Volt, Ökologisch-Demokratische Partei";
 
 // 1.2.4. Logos der Parteien (und Bildgroesse fuer alle, Ursprungseinstellung = 50x25px)
 // 1.2.4. Logos of parties (and picture size for all, default = 50x25px)
-var strPartyLogosImg = "CDU.png, SPD.png, gruene.png, linke.png, fdp.png, Piraten.png, UWG.png";
+var strPartyLogosImg = "CDU.png, SPD.png, gruene.png, linke.png, fdp.png, Piraten.png, UWG.png, Volt.png, OEDP.png";
 
 // DEMNÄCHST VERALTET und wird ersetzt durch schicke, automatisch skalierte Bilder (Bootstrap) 
 // TO BE DEPRECATED and to be replaced with fancy, automatic sized images (Bootstrap) 
@@ -94,7 +94,7 @@ var intPartyLogosImgHeight = 75;
 
 // 1.2.5. Internetseiten der Parteien/Kandidaten beginnend mit http(s):// - Link oeffnet sich im neuen Fenster.
 // 1.2.5. Website of parties/candidates starting with http(s):// - Link opens in a new window.
-var strPartyInternet = "https://www.cdu-aachen.de/, https://www.spd-aachen.eu/, https://www.gruene-aachen.de/, https://dielinke-aachen.de/, https://www.fdp-aachen.de/, https://www.piratenpartei-aachen.de/, http://uwg-aachen.de/";
+var strPartyInternet = "https://www.cdu-aachen.de/, https://www.spd-aachen.eu/, https://www.gruene-aachen.de/, https://dielinke-aachen.de/, https://www.fdp-aachen.de/, https://www.piratenpartei-aachen.de/, http://uwg-aachen.de/, https://www.voltdeutschland.org/aachen, https://www.oedp-aachen.de/startseite/";
 
 // DEPRECATED v.0.3
 // 1.2.6. Anzahl der Parteien, die in der detaillierten Auswertung sofort angezeigt werden sollen. 0 = alle
