@@ -112,7 +112,7 @@ var heading1 = "KLIMA-KOMMUNAL-O-MAT";
 
 // 1.3.2. Zweite Ueberschrift
 // 1.3.2. Second Headline
-var heading2 = "<p style=\"color:red;\"><strong>Das ist nur eine vorläufige Version - nicht für die Veröffentlichung gedacht!!!</strong></p><br>Der KLIMA-KOMMUNAL-O-MAT zur Kommunalwahl in Aachen 2020 umfasst die Bereiche Klimaschutz, Ressourceneffizienz und Klimafolgenanpassung. Er wurde auf Basis der Antworten der vom Runden Tisch Klimanotstand Aachen befragten Parteien erstellt. Die Antworten der Parteien können auch unter <a href=\"https://www.runder-tisch-klimanotstand-ac.de/wahlpruefsteine/\">https://www.runder-tisch-klimanotstand-ac.de/wahlpruefsteine/</a> eingesehen werden.";
+var heading2 = "Der KLIMA-KOMMUNAL-O-MAT zur Kommunalwahl in Aachen 2020 umfasst die Bereiche Klimaschutz, Ressourceneffizienz und Klimafolgenanpassung. Er wurde auf Basis der Antworten der vom Runden Tisch Klimanotstand Aachen befragten Parteien erstellt. Die Antworten der Parteien können auch unter <a href=\"https://www.runder-tisch-klimanotstand-ac.de/wahlpruefsteine/\">https://www.runder-tisch-klimanotstand-ac.de/wahlpruefsteine/</a> eingesehen werden.";
 
 // 1.3.3. Kurzer Text um was es bei der Wahl geht
 // 1.3.3. Short (explaining) text on what's the election about
