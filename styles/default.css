@@ -13,7 +13,7 @@ body {
 /* UeBERSCHRIFTEN */
 /* HEADLINES */
 h1 { font-size:150%;}
-h2 { font-size:120%; text-decoration: underline dotted; margin-top: 0.5em; margin-bottom: 0.5em;}
+h2 { font-size:120%; margin-top: 0.5em; margin-bottom: 0.5em;}
 h3 { font-size:110%;}
 
 /* LINK-Farbe */
