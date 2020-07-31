@@ -94,7 +94,7 @@ var intPartyLogosImgHeight = 75;
 
 // 1.2.5. Internetseiten der Parteien/Kandidaten beginnend mit http(s):// - Link oeffnet sich im neuen Fenster.
 // 1.2.5. Website of parties/candidates starting with http(s):// - Link opens in a new window.
-var strPartyInternet = "https://www.cdu-aachen.de/, https://www.spd-aachen.eu/, https://www.gruene-aachen.de/, https://dielinke-aachen.de/, https://www.fdp-aachen.de/, https://www.piratenpartei-aachen.de/, http://uwg-aachen.de/, https://www.voltdeutschland.org/aachen, https://www.oedp-aachen.de/startseite/";
+var strPartyInternet = "https://www.cdu-aachen.de/, https://www.spd-aachen.eu/, https://www.gruene-aachen.de/, https://dielinke-aachen.de/, https://www.fdp-aachen.de/, https://www.piratenpartei-aachen.de/, https://uwg.ac/, https://www.voltdeutschland.org/aachen, https://www.oedp-aachen.de/startseite/";
 
 // DEPRECATED v.0.3
 // 1.2.6. Anzahl der Parteien, die in der detaillierten Auswertung sofort angezeigt werden sollen. 0 = alle
