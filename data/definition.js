@@ -116,7 +116,7 @@ var heading2 = "Der KLIMA-KOMMUNAL-O-MAT zur Kommunalwahl in Aachen 2020 umfasst
 
 // 1.3.3. Kurzer Text um was es bei der Wahl geht
 // 1.3.3. Short (explaining) text on what's the election about
-var explainingText = "Die hier präsentierten Themengebiete stellen nur einen Auszug der relevanten Themen für die Kommunalwahl 2020 dar. Insofern erhebt dieser KLIMA-KOMMUNAL-O-MAT keinen Anspruch auf Vollständigkeit."; 
+var explainingText = "*Die Aussagen wurden (teilweise) vom Fachjargon in leichter verständliche Sprache umformuliert um mehr Bürger*innen anzusprechen. Die aus den Originalfragen formulierten Aussagen finden sich in Klammern direkt dahinter. (Änderung am 20.08.20)<br/><br/> Die hier präsentierten Themengebiete stellen nur einen Auszug der relevanten Themen für die Kommunalwahl 2020 dar. Insofern erhebt dieser KLIMA-KOMMUNAL-O-MAT keinen Anspruch auf Vollständigkeit."; 
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
